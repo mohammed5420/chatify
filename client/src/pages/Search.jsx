@@ -108,7 +108,7 @@ const Search = () => {
 
                 <input type="checkbox" id="my-modal" className="modal-toggle" />
                 <div className="modal">
-                  <div className="modal-box relative">
+                  <div className="modal-box relative bg-base-300">
                     <div className="modal-action absolute right-2 top-2 mt-0">
                       <label
                         htmlFor="my-modal"
