@@ -88,9 +88,8 @@ const Search = () => {
         <>
           <Navigation />
           <div className="flex gap-6 items-center justify-center flex-col mt-16">
-            <h2 className="text-lg font-bold text-slate-100 text-center w-full max-w-md ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-              assumenda voluptates ut nam.
+            <h2 className="text-lg font-bold text-slate-200 text-center w-full max-w-md ">
+              Explore interested topics and meet friends have the same interests.
             </h2>
             <div className="flex flex-col w-full border-opacity-50 max-w-md">
               <div className="grid place-items-center">
@@ -152,7 +151,7 @@ const Search = () => {
                   })
                 ) : (
                   <p className="text-center text-slate-500">
-                    No current live Rooms
+                    No current live Rooms, Create One!
                   </p>
                 )}
               </div>

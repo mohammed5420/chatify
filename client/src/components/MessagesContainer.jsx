@@ -1,25 +1,31 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import Message from './Message';
 import SendMessage from './SendMessage';
 import space from '../images/space.svg';
+import { useParams } from 'react-router-dom';
 
 const MessagesContainer = ({ user, messages, handleSubmit, showAlert }) => {
+  const params  = useParams();
   const containerRef = useRef(null);
-  useLayoutEffect(() => {
+  useEffect(() => {
     const socket = io('http://localhost:5000');
     if (containerRef.current) {
-      containerRef.current.scroll(0, containerRef.current.scrollHeight);
       socket.on('send message', () => {
-        console.log('Container Height => ', containerRef.current.scrollHeight);
+        // console.log('Container Height => ', containerRef.current.scrollHeight);
         containerRef.current.scroll(0, containerRef.current.scrollHeight);
       });
+      containerRef.current.scroll(0, containerRef.current.scrollHeight);
     }
 
     return () => {
+      socket.emit(
+        'leave room',
+        JSON.stringify({ roomID: params.id, id: user.id, name: user.name })
+      );
       socket.disconnect();
     };
-  }, [containerRef.current]);
+  }, [containerRef]);
   return (
     <div className="col-span-4 order-1 lg:order-2">
       <div className="flex relative flex-col gap-4 bg-base-200 w-full h-[35rem] rounded-md p-4">

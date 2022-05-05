@@ -34,7 +34,7 @@ const SearchField = () => {
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Search for room"
+          placeholder="Enter room ID"
           className="input input-bordered w-full pl-10"
         />
       </form>

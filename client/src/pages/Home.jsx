@@ -13,7 +13,6 @@ const Home = () => {
       .get('http://localhost:5000/auth/user', { withCredentials: true })
       .then((res) => {
         setUser(res.data._json);
-        navigate("/search")
       })
       .catch((err) => {
         console.error({ err });
@@ -24,6 +23,7 @@ const Home = () => {
     axios
       .get('http://localhost:5000/auth/user', { withCredentials: true })
       .then((res) => {
+        navigate('/search');
         setUser(res.data._json);
       })
       .catch((err) => {
@@ -42,17 +42,15 @@ const Home = () => {
             <div className=""></div>
             <img
               src={Flower}
-              className="w-56 transform rotate-6 mr-12  rounded-lg"
+              className="w-48 transform rotate-6 mr-12  rounded-lg"
             />
           </div>
           <div className="max-w-lg">
-            <h1 className="text-7xl text-slate-100 font-bold">
-              Box Office News!
+            <h1 className="text-6xl text-slate-100 font-bold">
+              Chatify, The world's best rooms app
             </h1>
             <p className="py-6 text-2xl text-slate-400">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Join or create rooms and talk about interesting topics.
             </p>
             <button
               className="btn btn-primary btn-lg capitalize gap-2"
