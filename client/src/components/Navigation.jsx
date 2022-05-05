@@ -1,11 +1,20 @@
 import React, { useContext, useState } from 'react';
 import Logo from '../images/Logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../utils/UserContext';
+import axios from 'axios';
 const Navigation = () => {
   const [active, setActive] = useState(false);
-
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const handleLogout = () => {
+    axios
+      .get('http://localhost:5000/auth/logout')
+      .catch((err) => {
+        console.error(err);
+      });
+      navigate("/");
+  };
   const NavElement = () => {
     return (
       <ul
@@ -23,7 +32,9 @@ const Navigation = () => {
 
         {user ? (
           <li className={`flex items-center gap-6 ${active && ' flex-col'}`}>
-            <p className="">Log out</p>
+            <p className="cursor-pointer" onClick={handleLogout}>
+              Log out
+            </p>
             <div className="avatar flex items-center">
               <p className="mr-2">{user.name}</p>
               <div className="w-8 rounded-full">
