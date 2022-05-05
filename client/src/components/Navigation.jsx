@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Logo from '../images/Logo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../utils/UserContext';
@@ -6,16 +6,24 @@ import axios from 'axios';
 const Navigation = () => {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
-  const handleLogout = () => {
-    axios
-      .get('http://localhost:5000/auth/logout')
-      .catch((err) => {
-        console.error(err);
-      });
-      navigate("/");
-  };
+  const { user, setUser } = useContext(UserContext);
   const NavElement = () => {
+    const handleLogout = () => {
+      axios
+        .get('http://localhost:5000/auth/logout', { withCredentials: true })
+        .then((res) => {
+          setUser(null);
+          navigate('/');
+        })
+        .catch((err) => {
+          if (err.response.status == 304) {
+            setUser(null);
+            navigate('/');
+          } else {
+            console.error(err);
+          }
+        });
+    };
     return (
       <ul
         className={`hidden md:flex justify-end items-center capitalize text-md font-semibold gap-6 z-10${
@@ -52,6 +60,7 @@ const Navigation = () => {
       </ul>
     );
   };
+
   return (
     <nav className="relative flex justify-between items-center">
       <div className="logo">
