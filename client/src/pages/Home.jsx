@@ -42,11 +42,11 @@ const Home = () => {
             <div className=""></div>
             <img
               src={Flower}
-              className="w-48 transform rotate-6 mr-12  rounded-lg"
+              className="w-28 my-16 md:my-0 md:w-36 lg:w-48 transform rotate-6 mr-12  rounded-lg"
             />
           </div>
-          <div className="max-w-lg">
-            <h1 className="text-6xl text-slate-100 font-bold">
+          <div className="max-w-xl my-14 md:my-0">
+            <h1 className="text-4xl md:text-6xl text-slate-100 font-bold">
               Chatify, The world's best rooms app
             </h1>
             <p className="py-6 text-2xl text-slate-400">
