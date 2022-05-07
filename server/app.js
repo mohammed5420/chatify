@@ -1,5 +1,6 @@
 const app = require("express")();
 require("./db.config");
+require("dotenv").config();
 const cookieSession = require("cookie-session");
 const res = require("express/lib/response");
 const passport = require("passport");
@@ -22,7 +23,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: import.meta.env.CLIENT_BASE_URI,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     credentials: true,
@@ -32,7 +33,7 @@ app.use(
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIE_SECRET],
+    keys: [import.meta.env.COOKIE_SECRET],
   })
 );
 app.use(passport.initialize());
@@ -45,13 +46,15 @@ app.get("/", authVerifier, (req, res) => {
   res.json(req.user);
 });
 
-const server = app.listen(5000, () => {
+
+const port = process.env.PORT || 5000;
+const server = app.listen(port, () => {
   console.log("app running on port 5000");
 });
 
 const io = webSocket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: import.meta.env.CLIENT_BASE_URI,
     credentials: true,
     methods: ["GET", "POST", "DELETE", "PATCH"],
   },

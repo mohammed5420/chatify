@@ -10,7 +10,9 @@ const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get('http://localhost:5000/auth/user', { withCredentials: true })
+      .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/user`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setUser(res.data._json);
       })
@@ -21,7 +23,9 @@ const Home = () => {
 
   const handleClick = () => {
     axios
-      .get('http://localhost:5000/auth/user', { withCredentials: true })
+      .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/user`, {
+        withCredentials: true,
+      })
       .then((res) => {
         navigate('/search');
         setUser(res.data._json);
@@ -29,7 +33,10 @@ const Home = () => {
       .catch((err) => {
         console.log({ err });
         if (err.response.status == 403) {
-          window.open('http://localhost:5000/auth/google', 'popup');
+          window.open(
+            `${import.meta.env.VITE_SERVER_BASE_URI}/auth/google`,
+            'popup'
+          );
         }
       });
   };

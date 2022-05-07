@@ -6,10 +6,10 @@ import space from '../images/space.svg';
 import { useParams } from 'react-router-dom';
 
 const MessagesContainer = ({ user, messages, handleSubmit, showAlert }) => {
-  const params  = useParams();
+  const params = useParams();
   const containerRef = useRef(null);
   useEffect(() => {
-    const socket = io('http://localhost:5000');
+    const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
     if (containerRef.current) {
       socket.on('send message', () => {
         // console.log('Container Height => ', containerRef.current.scrollHeight);

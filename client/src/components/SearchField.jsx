@@ -9,7 +9,9 @@ const SearchField = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:5000/room/search', { roomID: searchInput })
+      .post(`${import.meta.env.VITE_SERVER_BASE_URI}/room/search`, {
+        roomID: searchInput,
+      })
       .then((res) => {
         if (res.data.redirectUrl != null) {
           setShowMessage(null);
@@ -40,7 +42,7 @@ const SearchField = () => {
       </form>
       {showMessage && (
         <div className="mt-4 ">
-          <div className='flex justify-center'>
+          <div className="flex justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -54,7 +56,7 @@ const SearchField = () => {
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
-            <span className='ml-2'>{showMessage}.</span>
+            <span className="ml-2">{showMessage}.</span>
           </div>
         </div>
       )}

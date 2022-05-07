@@ -19,10 +19,12 @@ const Room = () => {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState({ canShow: false, message: '' });
   useEffect(() => {
-    const socket = io('http://localhost:5000');
+    const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
     if (user == null) {
       axios
-        .get('http://localhost:5000/auth/user', { withCredentials: true })
+        .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/user`, {
+          withCredentials: true,
+        })
         .then((res) => {
           setUser(res.data._json);
         })
@@ -49,7 +51,7 @@ const Room = () => {
     };
   }, [user]);
   useEffect(() => {
-    const socket = io('http://localhost:5000');
+    const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
     socket.on('send message', ({ messages }) => {
       setMessages(messages);
     });
@@ -78,9 +80,12 @@ const Room = () => {
     });
 
     axios
-      .get(`http://localhost:5000/room/messages/${params.id}`, {
-        withCredentials: true,
-      })
+      .get(
+        `${import.meta.env.VITE_SERVER_BASE_URI}/room/messages/${params.id}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then(({ data }) => {
         setTimeout(async () => {
           setRoomDetails({
@@ -98,7 +103,7 @@ const Room = () => {
   }, []);
 
   const handleSubmit = (e, message, setMessage) => {
-    const socket = io('http://localhost:5000');
+    const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
 
     e.preventDefault();
     socket.emit(
@@ -108,7 +113,7 @@ const Room = () => {
     setMessage('');
   };
   const handleLeaveRoom = () => {
-    const socket = io('http://localhost:5000');
+    const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
     socket.emit(
       'leave room',
       JSON.stringify({ roomID: params.id, id: user.id, name: user.name })

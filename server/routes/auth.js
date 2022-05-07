@@ -7,7 +7,7 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:3000/search");
+    res.redirect(`${import.meta.env.CLIENT_BASE_URI}/search`);
   }
 );
 
@@ -20,8 +20,8 @@ router.get("/user", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
-  
-  return res.status(200).json({message : "logged out"});
+
+  return res.status(200).json({ message: "logged out" });
 });
 
 module.exports = router;

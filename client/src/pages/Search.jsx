@@ -20,7 +20,9 @@ const Search = () => {
   const { user, setUser } = useContext(UserContext);
   useEffect(() => {
     axios
-      .get('http://localhost:5000/auth/user', { withCredentials: true })
+      .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/user`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res);
         setUser(res.data._json);
@@ -36,15 +38,19 @@ const Search = () => {
   // const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get('http://localhost:5000/room/', { withCredentials: true })
+      .get(`${import.meta.env.VITE_SERVER_BASE_URI}/room/`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setLiveRooms(res.data.data);
       });
-    const socket = io('http://localhost:5000');
+    const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
 
     socket.on('leave room', () => {
       axios
-        .get('http://localhost:5000/room/', { withCredentials: true })
+        .get(`${import.meta.env.VITE_SERVER_BASE_URI}/room/`, {
+          withCredentials: true,
+        })
         .then((res) => {
           setLiveRooms(res.data.data);
         });
@@ -52,7 +58,9 @@ const Search = () => {
 
     socket.on('join room', () => {
       axios
-        .get('http://localhost:5000/room/', { withCredentials: true })
+        .get(`${import.meta.env.VITE_SERVER_BASE_URI}/room/`, {
+          withCredentials: true,
+        })
         .then((res) => {
           setLiveRooms(res.data.data);
         });
@@ -67,7 +75,7 @@ const Search = () => {
     console.log(data);
     axios
       .post(
-        'http://localhost:5000/room/create',
+        `${import.meta.env.VITE_SERVER_BASE_URI}/room/create`,
         {
           name: data.name,
           description: data.description,

@@ -10,7 +10,9 @@ const Navigation = () => {
   const NavElement = () => {
     const handleLogout = () => {
       axios
-        .get('http://localhost:5000/auth/logout', { withCredentials: true })
+        .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/logout`, {
+          withCredentials: true,
+        })
         .then((res) => {
           setUser(null);
           navigate('/');
