@@ -4,10 +4,10 @@ router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google", { failureRedirect: "/google" }),
   function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect(`${import.meta.env.CLIENT_BASE_URI}/search`);
+    res.redirect(`${process.env.CLIENT_BASE_URI}/search`);
   }
 );
 

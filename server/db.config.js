@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-mongoose.connect(import.meta.env.CONNECTION_STRING, (err) => {
+mongoose.connect(process.env.CONNECTION_STRING, (err) => {
   console.log(err);
 });
 

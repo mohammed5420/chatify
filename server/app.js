@@ -20,10 +20,11 @@ require("./auth");
 const webSocket = require("socket.io");
 const express = require("express");
 app.use(morgan("dev"));
+app.enable('trust proxy')
 app.use(express.json());
 app.use(
   cors({
-    origin: import.meta.env.CLIENT_BASE_URI,
+    origin: process.env.CLIENT_BASE_URI,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     credentials: true,
@@ -33,7 +34,7 @@ app.use(
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [import.meta.env.COOKIE_SECRET],
+    keys: [process.env.COOKIE_SECRET],
   })
 );
 app.use(passport.initialize());
@@ -54,7 +55,7 @@ const server = app.listen(port, () => {
 
 const io = webSocket(server, {
   cors: {
-    origin: import.meta.env.CLIENT_BASE_URI,
+    origin: process.env.CLIENT_BASE_URI,
     credentials: true,
     methods: ["GET", "POST", "DELETE", "PATCH"],
   },
