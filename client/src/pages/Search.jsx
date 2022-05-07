@@ -35,21 +35,27 @@ const Search = () => {
   const [liveRooms, setLiveRooms] = useState(null);
   // const navigate = useNavigate();
   useEffect(() => {
-    axios.get('http://localhost:5000/room/').then((res) => {
-      setLiveRooms(res.data.data);
-    });
+    axios
+      .get('http://localhost:5000/room/', { withCredentials: true })
+      .then((res) => {
+        setLiveRooms(res.data.data);
+      });
     const socket = io('http://localhost:5000');
 
     socket.on('leave room', () => {
-      axios.get('http://localhost:5000/room/').then((res) => {
-        setLiveRooms(res.data.data);
-      });
+      axios
+        .get('http://localhost:5000/room/', { withCredentials: true })
+        .then((res) => {
+          setLiveRooms(res.data.data);
+        });
     });
 
     socket.on('join room', () => {
-      axios.get('http://localhost:5000/room/').then((res) => {
-        setLiveRooms(res.data.data);
-      });
+      axios
+        .get('http://localhost:5000/room/', { withCredentials: true })
+        .then((res) => {
+          setLiveRooms(res.data.data);
+        });
     });
 
     return () => {
@@ -71,6 +77,7 @@ const Search = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          withCredentials: true,
         }
       )
       .then((res) => {
@@ -89,7 +96,8 @@ const Search = () => {
           <Navigation />
           <div className="flex gap-6 items-center justify-center flex-col mt-16">
             <h2 className="text-lg font-bold text-slate-200 text-center w-full max-w-md ">
-              Explore interested topics and meet friends have the same interests.
+              Explore interested topics and meet friends have the same
+              interests.
             </h2>
             <div className="flex flex-col w-full border-opacity-50 max-w-md">
               <div className="grid place-items-center">

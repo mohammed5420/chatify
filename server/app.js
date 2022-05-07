@@ -39,7 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/auth", authRoutes);
-app.use("/room", roomRoutes);
+app.use("/room", authVerifier, roomRoutes);
 
 app.get("/", authVerifier, (req, res) => {
   res.json(req.user);
