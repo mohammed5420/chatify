@@ -59,7 +59,7 @@ const io = webSocket(server, {
 
 io.on("connection", (socket) => {
   // console.log("New Connection from react");
-  socket.on("new message", (data) => {  
+  socket.on("new message", (data) => {
     console.log("new message");
     io.sockets.emit("new message", data);
   });
