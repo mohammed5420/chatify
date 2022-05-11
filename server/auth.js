@@ -12,7 +12,7 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
       const { _json: userProfile } = profile;
-      console.log({ profile });
+      // console.log({ profile });
       const user = await User.findOne({ uid: userProfile.sub });
       if (user == null) {
         const user = await User.create({

@@ -50,7 +50,7 @@ app.get("/", authVerifier, (req, res) => {
 
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
-  console.log("app running on port 5000");
+  // console.log("app running on port 5000");
 });
 
 const io = webSocket(server, {
@@ -62,18 +62,18 @@ const io = webSocket(server, {
 });
 
 io.on("connection", (socket) => {
-  // console.log("New Connection from react");
+  // // console.log("New Connection from react");
   socket.on("new message", (data) => {
-    console.log("new message");
+    // console.log("new message");
     io.sockets.emit("new message", data);
   });
   socket.on("join room", async (data) => {
     const newData = await JSON.parse(data);
-    // console.log("join member");
+    // // console.log("join member");
     joinRoom(io, newData);
   });
   socket.on("leave room", async (data) => {
-    console.log("leave room");
+    // console.log("leave room");
     const newData = await JSON.parse(data);
     leaveRoom(socket, newData);
   });

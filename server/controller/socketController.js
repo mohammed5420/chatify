@@ -17,7 +17,7 @@ const joinRoom = async (io, data) => {
     { members: -1 }
   ).populate("members");
   // io.emit("join room",  {members} );
-  console.log(members.members);
+  // console.log(members.members);
   io.emit("join room", {
     members: members.members,
     roomID: data.roomID,
@@ -26,7 +26,7 @@ const joinRoom = async (io, data) => {
 };
 
 const leaveRoom = async (io, data) => {
-  console.log({ data });
+  // console.log({ data });
   await Room.updateOne(
     { roomID: data.roomID },
     { $pull: { members: data.id } }
@@ -46,7 +46,7 @@ const leaveRoom = async (io, data) => {
 };
 
 const sendMessage = async (io, data) => {
-  console.log(data);
+  // console.log(data);
   await Room.updateOne(
     { roomID: data.roomID },
     {
@@ -60,7 +60,7 @@ const sendMessage = async (io, data) => {
     { messages: -1 }
   ).populate("messages.senderID");
   // io.emit("send message", { messages });
-  console.log({ messages });
+  // console.log({ messages });
   populateEvents(io, "send message", messages);
 };
 

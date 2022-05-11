@@ -8,7 +8,7 @@ const CreateRoom = ({ handleSubmit }) => {
   });
   // const handleFormChange = (e) => {
   const handleFormChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   // }

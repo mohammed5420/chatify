@@ -19,7 +19,7 @@ const getPublicRooms = async (req, res) => {
 
 const createRoom = async (req, res) => {
   const body = req.body;
-  console.log({ body });
+  // console.log({ body });
   const roomID = uuid();
   const roomObject = {
     roomID,

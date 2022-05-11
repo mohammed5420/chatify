@@ -12,7 +12,7 @@ const MessagesContainer = ({ user, messages, handleSubmit, showAlert }) => {
     const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
     if (containerRef.current) {
       socket.on('send message', () => {
-        // console.log('Container Height => ', containerRef.current.scrollHeight);
+        // // console.log('Container Height => ', containerRef.current.scrollHeight);
         containerRef.current.scroll(0, containerRef.current.scrollHeight);
       });
       containerRef.current.scroll(0, containerRef.current.scrollHeight);

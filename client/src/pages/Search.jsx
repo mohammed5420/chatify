@@ -24,7 +24,7 @@ const Search = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setUser(res.data._json);
       })
       .catch((err) => {
@@ -72,7 +72,7 @@ const Search = () => {
   }, []);
   const createNewRoom = (e, data) => {
     e.preventDefault();
-    console.log(data);
+    // console.log(data);
     axios
       .post(
         `${import.meta.env.VITE_SERVER_BASE_URI}/room/create`,
@@ -89,7 +89,7 @@ const Search = () => {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         navigate(res.data.redirectUrl);
       })
       .catch((err) => {

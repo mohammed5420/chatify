@@ -35,7 +35,7 @@ const Room = () => {
           console.error({ err });
         });
     } else {
-      console.log('EMit Join room');
+      // console.log('EMit Join room');
       socket.emit(
         'join room',
         JSON.stringify({
@@ -57,9 +57,9 @@ const Room = () => {
     });
 
     socket.on('leave room', async (data) => {
-      // console.log(data);
+      // // console.log(data);
       // const { members } = data;
-      // console.log(data.members);
+      // // console.log(data.members);
       if (data.roomID == params.id) {
         setRoomMembers(data.members);
         setShowAlert({ canShow: true, message: data.message });

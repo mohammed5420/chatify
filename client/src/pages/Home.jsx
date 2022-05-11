@@ -31,7 +31,7 @@ const Home = () => {
         setUser(res.data._json);
       })
       .catch((err) => {
-        console.log({ err });
+        // console.log({ err });
         if (err.response.status == 403) {
           window.open(
             `${import.meta.env.VITE_SERVER_BASE_URI}/auth/google`,
