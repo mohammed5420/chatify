@@ -30,7 +30,7 @@ const SearchField = () => {
   };
   return (
     <div className="w-full max-w-xs relative">
-      <form action="" onSubmit={handleSubmit}>
+      <form className="flex gap-4" action="" onSubmit={handleSubmit}>
         <img
           className="absolute top-4 left-4"
           src={SearchIcon}
@@ -41,7 +41,7 @@ const SearchField = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Enter room ID"
-          className="input input-bordered w-full pl-10"
+          className="input input-bordered w-full pl-10 inline"
         />
         <button className="btn btn-primary" onClick={handleSubmit}>
           join
