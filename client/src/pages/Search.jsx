@@ -35,7 +35,7 @@ const Search = () => {
       });
   }, []);
   const [liveRooms, setLiveRooms] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_SERVER_BASE_URI}/room/`, {
