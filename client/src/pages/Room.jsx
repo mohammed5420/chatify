@@ -136,7 +136,7 @@ const Room = () => {
                         onClick={handleLeaveRoom}
                       >
                         <img src={LeftIcon} alt="Back" />
-                        back
+                        Leave Room
                       </button>
                     </Link>
                     <h2 className="text-xl font-bold text-slate-100">
