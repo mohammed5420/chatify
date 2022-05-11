@@ -9,9 +9,13 @@ const SearchField = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${import.meta.env.VITE_SERVER_BASE_URI}/room/search`, {
-        roomID: searchInput,
-      })
+      .post(
+        `${import.meta.env.VITE_SERVER_BASE_URI}/room/search`,
+        {
+          roomID: searchInput,
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         if (res.data.redirectUrl != null) {
           setShowMessage(null);
@@ -39,6 +43,9 @@ const SearchField = () => {
           placeholder="Enter room ID"
           className="input input-bordered w-full pl-10"
         />
+        <button className="btn btn-primary" onClick={handleSubmit}>
+          join
+        </button>
       </form>
       {showMessage && (
         <div className="mt-4 ">
