@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect,useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../utils/UserContext';
 import Navigation from '../components/Navigation';
@@ -22,13 +22,13 @@ const Home = () => {
   }, []);
   const [isLoading, setIsLoading] = useState(false);
   const handleClick = () => {
-    setLoading(true);
+    setIsLoading(true);
     axios
       .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/user`, {
         withCredentials: true,
       })
       .then((res) => {
-        setLoading(false);
+        setIsLoading(false);
         navigate('/search');
         setUser(res.data._json);
       })
@@ -38,8 +38,8 @@ const Home = () => {
           window.open(
             `${import.meta.env.VITE_SERVER_BASE_URI}/auth/google`,
             'popup'
-            );
-            setLoading(false);
+          );
+          setIsLoading(false);
         }
       });
   };
@@ -63,7 +63,9 @@ const Home = () => {
               Join or create rooms and talk about interesting topics.
             </p>
             <button
-              className={`btn btn-primary ${isLoading && " loading "} btn-lg capitalize gap-2`}
+              className={`btn btn-primary ${
+                isLoading && ' loading '
+              } btn-lg capitalize gap-2`}
               onClick={handleClick}
             >
               <img src={googleIcon} alt="google logo" />
