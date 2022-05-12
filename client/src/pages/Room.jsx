@@ -103,6 +103,16 @@ const Room = () => {
   }, []);
 
   const handleSubmit = (e, message, setMessage) => {
+    const placeHolderMessage = {
+      senderID: {
+        uid: user.sub,
+        userName: user.name,
+        picture: user.picture,
+      },
+      content: message,
+      createdAt: Date.now()
+    };
+    setMessages(messages => [...messages, placeHolderMessage]);
     const socket = io(`${import.meta.env.VITE_SERVER_BASE_URI}`);
 
     e.preventDefault();
