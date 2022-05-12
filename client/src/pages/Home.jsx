@@ -20,13 +20,15 @@ const Home = () => {
         console.error({ err });
       });
   }, []);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleClick = () => {
+    setLoading(true);
     axios
       .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/user`, {
         withCredentials: true,
       })
       .then((res) => {
+        setLoading(false);
         navigate('/search');
         setUser(res.data._json);
       })
@@ -36,7 +38,8 @@ const Home = () => {
           window.open(
             `${import.meta.env.VITE_SERVER_BASE_URI}/auth/google`,
             'popup'
-          );
+            );
+            setLoading(false);
         }
       });
   };
@@ -60,7 +63,7 @@ const Home = () => {
               Join or create rooms and talk about interesting topics.
             </p>
             <button
-              className="btn btn-primary btn-lg capitalize gap-2"
+              className={`btn btn-primary ${isLoading && " loading "} btn-lg capitalize gap-2`}
               onClick={handleClick}
             >
               <img src={googleIcon} alt="google logo" />
