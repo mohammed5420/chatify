@@ -8,6 +8,29 @@ const Navigation = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const NavElement = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const handleClick = () => {
+      setIsLoading(true);
+      axios
+        .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/user`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setIsLoading(false);
+          navigate('/search');
+          setUser(res.data._json);
+        })
+        .catch((err) => {
+          // console.log({ err });
+          if (err.response.status == 403) {
+            window.open(
+              `${import.meta.env.VITE_SERVER_BASE_URI}/auth/google`,
+              'popup'
+            );
+            setIsLoading(false);
+          }
+        });
+    };
     const handleLogout = () => {
       axios
         .get(`${import.meta.env.VITE_SERVER_BASE_URI}/auth/logout`, {
@@ -33,30 +56,34 @@ const Navigation = () => {
           ' active w-full top-16 bg-base-200 py-2 px-4 rounded absolute'
         }`}
       >
-        <li className="">
-          <Link to="/search">search</Link>
-        </li>
-        <li>
-          <Link to="/search">create room</Link>
-        </li>
-
         {user ? (
-          <li className={`flex items-center gap-6 ${active && ' flex-col'}`}>
-            <p className="cursor-pointer" onClick={handleLogout}>
-              Log out
-            </p>
-            <div className="avatar flex items-center">
-              <p className="mr-2">{user.name}</p>
-              <div className="w-8 rounded-full">
-                <img referrerPolicy="no-referrer" src={user.picture} />
+          <>
+            <li className="">
+              <Link to="/search">search</Link>
+            </li>
+            <li>
+              <Link to="/search">create room</Link>
+            </li>{' '}
+            <li className={`flex items-center gap-6 ${active && ' flex-col'}`}>
+              <p className="cursor-pointer" onClick={handleLogout}>
+                Log out
+              </p>
+              <div className="avatar flex items-center">
+                <p className="mr-2">{user.name}</p>
+                <div className="w-8 rounded-full">
+                  <img referrerPolicy="no-referrer" src={user.picture} />
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          </>
         ) : (
           <li>
-            <Link to="/" className="btn btn-primary">
+            <button
+              className={`btn btn-primary ${isLoading && ' loading'}`}
+              onClick={handleClick}
+            >
               Login
-            </Link>
+            </button>
           </li>
         )}
       </ul>
