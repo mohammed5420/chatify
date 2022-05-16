@@ -1,3 +1,3 @@
 # chatify
 
-Live demo (chatify)[https://chatify-rooms.vercel.app]
+Live demo [chatify](https://chatify-rooms.vercel.app)
