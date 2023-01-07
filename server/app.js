@@ -24,7 +24,6 @@ app.enable("trust proxy");
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.CLIENT_BASE_URI,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     credentials: true,
