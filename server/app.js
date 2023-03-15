@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const roomRoutes = require("./routes/room");
 const authVerifier = require("./middleware/authVerifier");
 const cors = require("cors");
+const session = require("express-session");
 const morgan = require("morgan");
 const {
   joinRoom,
@@ -20,7 +21,6 @@ require("./auth");
 const webSocket = require("socket.io");
 const express = require("express");
 app.use(morgan("dev"));
-app.enable("trust proxy");
 app.use(express.json());
 app.use(
   cors({
@@ -31,13 +31,24 @@ app.use(
     optionsSuccessStatus: 204,
   })
 );
+// app.use(
+//   cookieSession({
+//     maxAge: 24 * 60 * 60 * 1000,
+//     keys: [process.env.COOKIE_SECRET],
+//     sameSite: "none",
+//   })
+// );
+
 app.use(
-  cookieSession({
+  session({
+    name: "session",
+    resave: false,
+    saveUninitialized: true,
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIE_SECRET],
-    sameSite: "none",
+    secret: process.env.COOKIE_SECRET,
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -54,12 +65,7 @@ const server = app.listen(port, () => {
 });
 
 const io = webSocket(server, {
-  cors: {
-    origin: process.env.CLIENT_BASE_URI,
-    credentials: true,
-    methods: ["GET", "POST", "DELETE", "PATCH"],
-  },
-});
+  cors: {}});
 
 io.on("connection", (socket) => {
   // // console.log("New Connection from react");

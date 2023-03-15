@@ -7,6 +7,7 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/google" }),
   function (req, res) {
     // Successful authentication, redirect home.
+    console.log(req.baseUrl);
     res.redirect(`${process.env.CLIENT_BASE_URI}/search`);
   }
 );
